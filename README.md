@@ -2,6 +2,7 @@
 CyVerse deployment of Peter Vogt's Guidos ToolBox (GTB) and Guidos ToolBox Workbench (GWB)  
  
 ## Repository Organization  
+<pre>
 .  
 |-- AUTHORS.md  
 |-- README.md  
@@ -11,7 +12,7 @@ CyVerse deployment of Peter Vogt's Guidos ToolBox (GTB) and Guidos ToolBox Workb
 |-- vice-xpra-ubuntu-desktop-gtbgwb:  
       GWB and GTB on Tyson Swetnam's CyVerse DE VICE app "Xpra Desktop Ubuntu"    
       vice/xpra/ubuntu:22.04  
-
+</pre>
 ## Additional Information  
 The repository consists mainly of Dockerfiles which install and set up GTB and GWB.  
 For license and other information please visit  
