@@ -38,6 +38,9 @@ ENTRYPOINT [ "/dockerstartup/vnc_startup.sh" ]
 # end of swetnam's dockerfile
 
 # Install GTB/GWB
+RUN apt-get update && apt-get -y upgrade  \
+    && apt-get install apt-utils dialog gedit nomacs -y 
+
 WORKDIR /tmp
 RUN wget https://ies-ows.jrc.ec.europa.eu/gtb/GTB/gtb_amd64.deb
 RUN wget https://ies-ows.jrc.ec.europa.eu/gtb/GWB/gwb_amd64.deb
@@ -47,15 +50,16 @@ RUN rm -f gtb_amd64.deb gwb_amd64.deb
 # CyVerse has no normal user setup, adapt to the custom setup
 RUN mkdir /home/.gwb
 RUN chown kasm-user:kasm-user /home/.gwb
-# delete the default data directories, the user can define them as needed
-# RUN rm -fr /home/kasm-user/input /home/kasm-user/output
-
 # Switch to normal user
 WORKDIR /home/kasm-user
 USER kasm-user
+
+# delete the default data directories, the user can define them as needed
+RUN rm -fr /home/kasm-user/input /home/kasm-user/output
+
 # fix up GWB things for kasm-user
-RUN ln -s /home/.gwb /home/kasm-user/.gwb
-RUN touch /home/kasm-user/.gwb/EULA.txt
+RUN  ln -s /home/.gwb /home/kasm-user/.gwb
+RUN  touch /home/kasm-user/.gwb/EULA.txt
 # assign some meaningful applications... 
 RUN xdg-mime default nomacs.desktop "image/jpeg"
 RUN xdg-mime default nomacs.desktop "image/png"
@@ -66,6 +70,9 @@ RUN mkdir -p /home/kasm-user/.config/nomacs
 COPY ["Image Lounge.conf", "/home/kasm-user/.config/nomacs/"]
 RUN sudo chown kasm-user:kasm-user /home/kasm-user/.config/nomacs/'Image Lounge.conf'
 RUN chmod 644 /home/kasm-user/.config/nomacs/'Image Lounge.conf'
+# fix for K8S clusters https://stackoverflow.com/questions/63627955/cant-load-shared-library-libqt5core-so-5
+RUN sudo strip --remove-section=.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
+
 # End of GTB/GWB installation
 
 # Local docker image run (the internal 6901 port is mapped to external 9876)
