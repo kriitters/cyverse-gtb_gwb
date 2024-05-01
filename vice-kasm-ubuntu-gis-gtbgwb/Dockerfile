@@ -27,7 +27,7 @@ RUN rm -f gtb_amd64.deb gwb_amd64.deb
 RUN mkdir /home/.gwb
 RUN chown kasm-user:kasm-user /home/.gwb
 # delete the default data directories, the user can define them as needed
-RUN rm -fr /home/kasm-user/input /home/kasm-user/output
+# RUN rm -fr /home/kasm-user/input /home/kasm-user/output
 
 # Switch to normal user
 WORKDIR /home/kasm-user
