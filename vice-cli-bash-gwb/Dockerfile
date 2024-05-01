@@ -1,8 +1,10 @@
 FROM harbor.cyverse.org/vice/cli/bash:latest
 # default user is "jovyan", home dir /home/jovyan, sudo priv
+# this is the cyverse VICE DE "cloud shell" image
 
 # ########### Install GWB ###########
-RUN sudo apt-get update && sudo apt-get upgrade -y  \
+RUN sudo apt-get update \
+	# && sudo apt-get upgrade -y  \
     && sudo apt-get install apt-utils dialog -y \
 	# for fake x server
 	&& sudo apt-get install libxinerama1 -y \
@@ -25,7 +27,7 @@ RUN cp -R /opt/GWB/output/. /home/jovyan/gwboutput/
 RUN ln -s /home/.gwb /home/jovyan/.gwb
 RUN touch /home/jovyan/.gwb/EULA.txt
 # ######### End of GWB install ############
-# create ~/data-store for CSI driver fuse mount
+# create ~/data-store for CSI driver fuse mount -- this is already done in base image
 #RUN mkdir /home/jovyan/data-store
 RUN echo 'set-option -g status off' >> ~/.tmux.conf
 # entry.sh starts terminal
