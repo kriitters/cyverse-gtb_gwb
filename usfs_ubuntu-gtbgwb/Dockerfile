@@ -24,8 +24,10 @@ RUN wget https://ies-ows.jrc.ec.europa.eu/gtb/GTB/gtb_amd64.deb
 RUN wget https://ies-ows.jrc.ec.europa.eu/gtb/GWB/gwb_amd64.deb
 RUN apt-get install /tmp/gtb_amd64.deb /tmp/gwb_amd64.deb -y
 RUN rm -f gtb_amd64.deb gwb_amd64.deb
-# delete the default data directories, the user can define them as needed
-# RUN rm -fr /home/kasm-user/input /home/kasm-user/output
+# Move the default data directories into the GuidosToolbox folder, to avoid confusion.
+#   The CyVerse app defines other "input" and "output" directories at run time.
+RUN mv -f /home/kasm-user/input /home/kasm-user/GuidosToolbox/example_input
+RUN mv -f /home/kasm-user/output /home/kasm-user/GuidosToolbox/example_output
 
 # CyVerse has no normal user setup, adapt to the custom setup
 RUN mkdir /home/.gwb
