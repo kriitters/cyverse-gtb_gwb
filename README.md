@@ -27,8 +27,8 @@ There is one executable version for GWB only.
 	  GWB and GTB on Tanvir Ahmed's harbor.cyverse.org/usfs/kasm-stig-cyverse     
 	  Installs Peter Vogt's GTB and GWB and sets up kasm-user functionality  
 |-- ubuntu-executable-gwb   
-    GWB installed on Ubuntu 23:10 with an entry.sh file designed to run an executable container on CyVerse.   
-    The entry.sh expects the CyVerse front-end "app" to pass specific arguments during execution.   
+    GWB installed on Ubuntu 23:10 with an entry.sh file designed to run an executable container on CyVerse. Example input data are in the "input" folder; this can be copied to the CyVerse Data Store before running the executable.    
+    The entry.sh expects the CyVerse front-end "app" to pass specific arguments during execution. The "app" is structured to let the user choose an input directory and a GWB module to execute.   
 </pre>
 ## Additional Information  
 The repository consists mainly of Dockerfiles and entry shells which install and set up GTB and GWB.  
