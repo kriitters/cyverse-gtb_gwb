@@ -1,0 +1,72 @@
+You have no write permissions in the directory '${GWBCONF} - which resolves to /home/ubuntu/.gwb
+mkdir: cannot create directory ‘/home/ubuntu/data-store/’: File exists - occurs because it's not running on cyverse
+bash: line 1: --nox: command not found  - the command to run GWB_ACC is not constructed properly when it's not on cyverse
+
+debug info written by entry.sh:
+
+this is the shell user:
+ubuntu
+this is the uid:
+1000
+this is the gid:
+1000
+the user is a member of these groups:
+1000 4 20 24 25 27 29 30 44 46
+this is the current CyVerse username: 
+the name of this shell is: /bin/entry.sh
+these are the run-time parameters set in the DE app:
+this is the GWB script: 
+this is the external Data Store input directory: 
+this is the external analyses output directory: 
+this is the current directory:
+/home/ubuntu
+ls -al on the /home directory:
+total 20
+drwxr-xr-x 1 root   root   4096 May 29 19:05 .
+drwxr-xr-x 1 root   root   4096 Jul 19 06:36 ..
+drwxr-x--- 1 ubuntu ubuntu 4096 Jul 19 06:36 ubuntu
+listing of /home/ubuntu
+total 40
+drwxr-x--- 1 ubuntu ubuntu 4096 Jul 19 06:36 .
+drwxr-xr-x 1 root   root   4096 May 29 19:05 ..
+-rw-r--r-- 1 ubuntu ubuntu  220 Jan  7  2023 .bash_logout
+-rw-r--r-- 1 ubuntu ubuntu 3771 Jan  7  2023 .bashrc
+drwxr-xr-x 1 ubuntu ubuntu 4096 Jul 19 06:36 data-store
+lrwxrwxrwx 1 ubuntu ubuntu    9 Jul 19 06:34 .gwb -> /tmp/.gwb
+drwxr-xr-x 1 ubuntu ubuntu 4096 Jul 19 06:36 .irods
+drwxr-xr-x 2 ubuntu ubuntu 4096 Jul 19 06:36 output
+-rw-r--r-- 1 ubuntu ubuntu  807 Jan  7  2023 .profile
+-rw-r--r-- 1 ubuntu ubuntu    0 Jul 19 06:36 .sudo_as_admin_successful
+listing of /tmp
+total 20
+drwxrwxrwt 1 root   root   4096 Jul 18 07:19 .
+drwxr-xr-x 1 root   root   4096 Jul 19 06:36 ..
+drwxrwxrwx 1 ubuntu ubuntu 4096 Jul 19 06:34 .gwb
+listing of /tmp/.gwb
+total 16
+drwxrwxrwx 1 ubuntu ubuntu 4096 Jul 19 06:34 .
+drwxrwxrwt 1 root   root   4096 Jul 18 07:19 ..
+-rw-rw-rw- 1 ubuntu ubuntu    0 Jul 19 06:34 EULA.txt
+listing of /home/ubuntu/data-store//
+total 16
+drwxr-xr-x 1 ubuntu ubuntu 4096 Jul 19 06:36 .
+drwxr-x--- 1 ubuntu ubuntu 4096 Jul 19 06:36 ..
+-rw-r--r-- 1 ubuntu ubuntu    6 Jul 19 06:36 test.txt
+listing of the input directory outside the container:
+total 16
+drwxr-xr-x 1 ubuntu ubuntu 4096 Jul 19 06:36 .
+drwxr-x--- 1 ubuntu ubuntu 4096 Jul 19 06:36 ..
+-rw-r--r-- 1 ubuntu ubuntu    6 Jul 19 06:36 test.txt
+Environment
+HOSTNAME=f5a74402663f
+PWD=/home/ubuntu
+TZ=America/Phoenix
+HOME=/home/ubuntu
+LANG=C.UTF-8
+TERM=xterm
+USER=ubuntu
+SHLVL=1
+LC_ALL=en_US.UTF-8
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+OLDPWD=/home/ubuntu/data-store
+_=/usr/bin/env
