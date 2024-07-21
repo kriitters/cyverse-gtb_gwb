@@ -1,0 +1,28 @@
+FROM gwbexec1_2:latest
+# gwbexec1_2 is built by ubuntu-executable-gwb_p1
+
+# adapt to the custom CyVerse user setup
+USER root
+#RUN  mkdir /home/.gwb
+#RUN chmod a+rw /home/.gwb
+#
+COPY entry.sh /bin/entry.sh
+RUN  chmod a+x /bin/entry.sh
+#
+# fix up GWB things for user
+USER ubuntu
+
+
+# adapt to the custom CyVerse user setup
+#RUN ln -s /home/.gwb /home/ubuntu/.gwb
+#RUN touch /home/ubuntu/.gwb/EULA.txt
+#RUN chmod  a+rw /home/ubuntu/.gwb/EULA.txt
+
+
+# Fix up CyVerse volume mount for user ubuntu
+#   add directory for iRODS iCommands to user profile as JSON, see entry.sh
+RUN mkdir /home/ubuntu/.irods 
+RUN chown ubuntu:ubuntu  /home/ubuntu/.irods
+# execute as user ubuntu, using default Cyverse mount point as workdir
+WORKDIR /home/ubuntu/data-store
+ENTRYPOINT ["bash", "/bin/entry.sh"]
