@@ -21,8 +21,8 @@ mkdir /home/ubuntu/output
 mkdir /home/ubuntu/data-store/$3
 #
 
-export USER=ubuntu
-export HOME=/home/ubuntu
+#export USER=ubuntu
+#export HOME=/home/ubuntu
 echo "this is whoami:"
 whoami
 echo "this is USER:"

@@ -1,8 +1,6 @@
 FROM gwbexec1_2:latest
-# gwbexec1_2 is built by ubuntu-executable-gwb_p1
-
-# adapt to the custom CyVerse user setup
 USER root
+# adapt to the custom CyVerse user setup
 #RUN  mkdir /home/.gwb
 #RUN chmod a+rw /home/.gwb
 #

@@ -1,43 +1,41 @@
 this is whoami:
 ubuntu
 this is USER:
-ubuntu
+
 this is HOME:
 /home/ubuntu
 /home directory:
 total 20
-drwxr-xr-x 1 root   root   4096 May 29 19:05 .
-drwxr-xr-x 1 root   root   4096 Jul 21 04:13 ..
-drwxr-x--- 1 ubuntu ubuntu 4096 Jul 21 04:13 ubuntu
+drwxr-xr-x 1 root   root   4096 Jul 22 11:47 .
+drwxr-xr-x 1 root   root   4096 Jul 22 12:40 ..
+drwxr-x--- 1 ubuntu ubuntu 4096 Jul 22 12:40 ubuntu
 /home/ubuntu/ before adding ~/.gwb
 total 40
-drwxr-x---   1 ubuntu ubuntu 4096 Jul 21 04:13 .
-drwxr-xr-x   1 root   root   4096 May 29 19:05 ..
--rw-r--r-- 144 ubuntu ubuntu  220 Jan  7  2023 .bash_logout
--rw-r--r-- 144 ubuntu ubuntu 3771 Jan  7  2023 .bashrc
-drwxrwxrwx   5    992    989 4096 Jul 21 04:13 data-store
-drwxr-xr-x   1 ubuntu ubuntu 4096 Jul 21 04:13 .irods
-drwxr-xr-x   2 ubuntu ubuntu 4096 Jul 21 04:13 output
--rw-r--r-- 144 ubuntu ubuntu  807 Jan  7  2023 .profile
--rw-r--r--   1 ubuntu ubuntu    0 Jul 21 04:13 .sudo_as_admin_successful
+drwxr-x---  1 ubuntu ubuntu 4096 Jul 22 12:40 .
+drwxr-xr-x  1 root   root   4096 Jul 22 11:47 ..
+-rw-r--r-- 16 ubuntu ubuntu  220 Jul 22 11:47 .bash_logout
+-rw-r--r-- 16 ubuntu ubuntu 3771 Jul 22 11:47 .bashrc
+drwxrwxrwx  5    992    990 4096 Jul 22 12:40 data-store
+drwxr-xr-x  1 ubuntu ubuntu 4096 Jul 22 12:40 .irods
+drwxr-xr-x  2 ubuntu ubuntu 4096 Jul 22 12:40 output
+-rw-r--r-- 16 ubuntu ubuntu  807 Jul 22 11:47 .profile
 create /home/ubuntu/.gwb with chmod a+rw and re-do
 total 44
-drwxr-x---   1 ubuntu ubuntu 4096 Jul 21 04:13 .
-drwxr-xr-x   1 root   root   4096 May 29 19:05 ..
--rw-r--r-- 144 ubuntu ubuntu  220 Jan  7  2023 .bash_logout
--rw-r--r-- 144 ubuntu ubuntu 3771 Jan  7  2023 .bashrc
-drwxrwxrwx   5    992    989 4096 Jul 21 04:13 data-store
-drwxrwxrwx   2 ubuntu ubuntu 4096 Jul 21 04:13 .gwb
-drwxr-xr-x   1 ubuntu ubuntu 4096 Jul 21 04:13 .irods
-drwxr-xr-x   2 ubuntu ubuntu 4096 Jul 21 04:13 output
--rw-r--r-- 144 ubuntu ubuntu  807 Jan  7  2023 .profile
--rw-r--r--   1 ubuntu ubuntu    0 Jul 21 04:13 .sudo_as_admin_successful
+drwxr-x---  1 ubuntu ubuntu 4096 Jul 22 12:40 .
+drwxr-xr-x  1 root   root   4096 Jul 22 11:47 ..
+-rw-r--r-- 16 ubuntu ubuntu  220 Jul 22 11:47 .bash_logout
+-rw-r--r-- 16 ubuntu ubuntu 3771 Jul 22 11:47 .bashrc
+drwxrwxrwx  5    992    990 4096 Jul 22 12:40 data-store
+drwxrwxrwx  2 ubuntu ubuntu 4096 Jul 22 12:40 .gwb
+drwxr-xr-x  1 ubuntu ubuntu 4096 Jul 22 12:40 .irods
+drwxr-xr-x  2 ubuntu ubuntu 4096 Jul 22 12:40 output
+-rw-r--r-- 16 ubuntu ubuntu  807 Jul 22 11:47 .profile
 touching EULA and putting two test files into /home/ubuntu/.gwb
 ls -lr on /home/ubuntu/.gwb:
 total 8
--rw-r--r-- 1 ubuntu ubuntu 6 Jul 21 04:13 test.txt
--rw-r--r-- 1 ubuntu ubuntu 6 Jul 21 04:13 test2.txt
--rw-r--r-- 1 ubuntu ubuntu 0 Jul 21 04:13 EULA.txt
+-rw-r--r-- 1 ubuntu ubuntu 6 Jul 22 12:40 test.txt
+-rw-r--r-- 1 ubuntu ubuntu 6 Jul 22 12:40 test2.txt
+-rw-r--r-- 1 ubuntu ubuntu 0 Jul 22 12:40 EULA.txt
 test write permissions with: if [ -w /home/ubuntu/.gwb ]
 Your do not have write permissions in the directory /home/ubuntu/.gwb
 test write permissions using GWB method with GWBCONF=/home/ubuntu/.gwb/
@@ -46,18 +44,18 @@ end of test write permissions
 Look at stat /home/ubuntu/.gwb
   File: /home/ubuntu/.gwb
   Size: 4096      	Blocks: 8          IO Block: 4096   directory
-Device: 0,39	Inode: 9583112     Links: 2
+Device: 26h/38d	Inode: 138419592   Links: 2
 Access: (0777/drwxrwxrwx)  Uid: ( 1000/  ubuntu)   Gid: ( 1000/  ubuntu)
-Access: 2024-07-21 04:13:39.140291938 -0700
-Modify: 2024-07-21 04:13:39.137291929 -0700
-Change: 2024-07-21 04:13:39.137291929 -0700
+Access: 2024-07-22 12:40:56.000246549 +0000
+Modify: 2024-07-22 12:40:55.997246458 +0000
+Change: 2024-07-22 12:40:55.997246458 +0000
  Birth: -
  
 try to find directories writable by current user, find /home -type d -writable >> list.txt
-cat list.txt
+cat list.txt  (note blank response)
  
 try to find FILES writable by current user, find /home -type f -writable >> list2.txt
-cat list2.txt
+cat list2.txt   (note blank response)
  
 Try running bash -c /usr/bin/GWB_ACC  --nox  -i=/home/ubuntu/data-store/GWBinput -o=/home/ubuntu/output:
 Note: after execution, the cmd-line message: 
@@ -75,7 +73,7 @@ this is the uid:
 this is the gid:
 1000
 the user is a member of these groups:
-1000 4 20 24 25 27 29 30 44 46
+1000
 this is the current CyVerse username: kriitters
 the name of this shell is: /bin/entry.sh
 these are the run-time parameters set in the DE app:
@@ -84,39 +82,38 @@ this is the external Data Store input directory: GWBinput
 this is the external analyses output directory: myoutput
 listing of /home/ubuntu/data-store/myoutput/
 total 12
-drwxr-xr-x 2 ubuntu ubuntu 4096 Jul 21 04:13 .
-drwxrwxrwx 5    992    989 4096 Jul 21 04:13 ..
--rw-r--r-- 1 ubuntu ubuntu    6 Jul 21 04:13 test.txt
+drwxr-xr-x 2 ubuntu ubuntu 4096 Jul 22 12:40 .
+drwxrwxrwx 5    992    990 4096 Jul 22 12:40 ..
+-rw-r--r-- 1 ubuntu ubuntu    6 Jul 22 12:40 test.txt
 listing of the input directory outside the container:
 total 1036
-drwxr-xr-x 3 ubuntu ubuntu   4096 Jul 21 04:13 .
-drwxrwxrwx 5    992    989   4096 Jul 21 04:13 ..
--rw-r--r-- 1 root   root     1245 Jul 21 04:13 acc-parameters.txt
--rw-r--r-- 1 root   root   184839 Jul 21 04:13 clc3class.tif
--rw-r--r-- 1 root   root      755 Jul 21 04:13 dist-parameters.txt
--rw-r--r-- 1 root   root    69566 Jul 21 04:13 example.tif
--rw-r--r-- 1 root   root     1649 Jul 21 04:13 frag-parameters.txt
--rw-r--r-- 1 root   root   725229 Jul 21 04:13 gscinput.tif
--rw-r--r-- 1 root   root     5079 Jul 21 04:13 gsc-parameters.txt
--rw-r--r-- 1 root   root      756 Jul 21 04:13 lm-parameters.txt
--rw-r--r-- 1 root   root     1187 Jul 21 04:13 mspa-parameters.txt
--rw-r--r-- 1 root   root      699 Jul 21 04:13 parc-parameters.txt
--rw-r--r-- 1 root   root      463 Jul 21 04:13 readme.txt
--rw-r--r-- 1 root   root     1167 Jul 21 04:13 rec-parameters.txt
--rw-r--r-- 1 root   root      710 Jul 21 04:13 rss-parameters.txt
--rw-r--r-- 1 root   root     3187 Jul 21 04:13 sc-parameters.txt
--rw-r--r-- 1 root   root     1002 Jul 21 04:13 spa-parameters.txt
-drwxr-xr-x 2 root   root     4096 Jul 21 04:13 splitlump
--rw-r--r-- 1 root   root     5030 Jul 21 04:13 splitlump-parameters.txt
+drwxr-xr-x 3 ubuntu ubuntu   4096 Jul 22 12:40 .
+drwxrwxrwx 5    992    990   4096 Jul 22 12:40 ..
+-rw-r--r-- 1 root   root     1245 Jul 22 12:40 acc-parameters.txt
+-rw-r--r-- 1 root   root   184839 Jul 22 12:40 clc3class.tif
+-rw-r--r-- 1 root   root      755 Jul 22 12:40 dist-parameters.txt
+-rw-r--r-- 1 root   root    69566 Jul 22 12:40 example.tif
+-rw-r--r-- 1 root   root     1649 Jul 22 12:40 frag-parameters.txt
+-rw-r--r-- 1 root   root   725229 Jul 22 12:40 gscinput.tif
+-rw-r--r-- 1 root   root     5079 Jul 22 12:40 gsc-parameters.txt
+-rw-r--r-- 1 root   root      756 Jul 22 12:40 lm-parameters.txt
+-rw-r--r-- 1 root   root     1187 Jul 22 12:40 mspa-parameters.txt
+-rw-r--r-- 1 root   root      699 Jul 22 12:40 parc-parameters.txt
+-rw-r--r-- 1 root   root      463 Jul 22 12:40 readme.txt
+-rw-r--r-- 1 root   root     1167 Jul 22 12:40 rec-parameters.txt
+-rw-r--r-- 1 root   root      710 Jul 22 12:40 rss-parameters.txt
+-rw-r--r-- 1 root   root     3187 Jul 22 12:40 sc-parameters.txt
+-rw-r--r-- 1 root   root     1002 Jul 22 12:40 spa-parameters.txt
+drwxr-xr-x 2 root   root     4096 Jul 22 12:40 splitlump
+-rw-r--r-- 1 root   root     5030 Jul 22 12:40 splitlump-parameters.txt
 Environment:
-HOSTNAME=ea669821b6d2
+HOSTNAME=71d0b1fdc14f
 PWD=/home/ubuntu
-IPLANT_EXECUTION_ID=6da2d6f6-7693-40c5-a6b5-38abfe0aaf86
+IPLANT_EXECUTION_ID=07ab1862-0ac7-4623-ac0b-7fc0c8495e60
 TZ=America/Phoenix
 HOME=/home/ubuntu
 LANG=C.UTF-8
 IPLANT_USER=kriitters
-USER=ubuntu
 SHLVL=1
 LC_ALL=en_US.UTF-8
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
