@@ -24,14 +24,21 @@ RUN wget https://ies-ows.jrc.ec.europa.eu/gtb/GTB/gtb_amd64.deb
 RUN wget https://ies-ows.jrc.ec.europa.eu/gtb/GWB/gwb_amd64.deb
 RUN apt-get install /tmp/gtb_amd64.deb /tmp/gwb_amd64.deb -y
 RUN rm -f gtb_amd64.deb gwb_amd64.deb
-# Move the default data directories into the GuidosToolbox folder, to avoid confusion.
-#   The CyVerse app defines other "input" and "output" directories at run time.
-RUN mv -f /home/kasm-user/input /home/kasm-user/GuidosToolbox/example_input
-RUN mv -f /home/kasm-user/output /home/kasm-user/GuidosToolbox/example_output
 
-# CyVerse has no normal user setup, adapt to the custom setup
+# CyVerse has no normal user setup, adapt GWB to the custom setup
 RUN mkdir /home/.gwb
 RUN chown kasm-user:kasm-user /home/.gwb
+# Install Google Earth: https://ubuntuhandbook.org/index.php/2024/05/install-google-earth-ubuntu/
+RUN mkdir /etc/apt/keyrings/
+#    add GE public key
+RUN wget -qO - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor |  tee /etc/apt/keyrings/google-earth.gpg >/dev/null
+#    add GE repo 
+RUN sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-earth.gpg] https://dl.google.com/linux/earth/deb/ stable main" > /etc/apt/sources.list.d/google-earth.list'
+RUN chmod -R 777 /etc/apt/*
+#    update repo
+RUN apt update
+#    install GE
+RUN  apt install google-earth-pro-stable
 # Switch to normal user
 WORKDIR /home/kasm-user
 USER kasm-user
@@ -48,6 +55,8 @@ RUN mkdir -p /home/kasm-user/.config/nomacs
 COPY ["Image Lounge.conf", "/home/kasm-user/.config/nomacs/"]
 RUN sudo chown kasm-user:kasm-user /home/kasm-user/.config/nomacs/'Image Lounge.conf'
 RUN chmod 644 /home/kasm-user/.config/nomacs/'Image Lounge.conf'
+# Add NLCD test data
+COPY  GTB_NLCD-data/ /home/kasm-user/GuidosToolbox/data/
 
 # fix for K8S clusters https://stackoverflow.com/questions/63627955/cant-load-shared-library-libqt5core-so-5
 RUN sudo strip --remove-section=.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
