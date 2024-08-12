@@ -6,7 +6,7 @@ CyVerse deployment of Peter Vogt's Guidos ToolBox (GTB) and Guidos ToolBox Workb
 .  
 |-- AUTHORS.md  
 |-- README.md  
-|-- vice-cli-bash-gwb:  CyVerse DE VICE tool.    
+|-- vice-cli-gwb:  CyVerse DE VICE tool.    
     GWB (only) on Tyson Swetnam's "Cloud Shell"  
 |-- gwb_executable:  CyVerse executable tool.  
     GWB (only) on rocker/r-ver:4.1.1 to be run as CyVerse executable    
