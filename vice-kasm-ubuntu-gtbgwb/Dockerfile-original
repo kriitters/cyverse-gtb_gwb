@@ -1,16 +1,24 @@
 # #### GTB/GWB on ubuntu desktop
 # K. Riitters April 2024
-#  Built on kasmweb/desktop
-#  To make it run on CyVerse, uses example from Tyson Swetnam's CyVerse VICE kasm-ubuntu 22.04:
+#  Start with Tyson Swetnam's CyVerse VICE kasm-ubuntu 22.04:
 #   https://github.com/cyverse-vice/kasm-ubuntu/tree/main/22.04
-#   From there, downloaded kasmvnc_defaults.yaml, sudoers, vnc_startup.sh
-# The kasmweb image is smaller than the productivity desktop Swetnam used (https://hub.docker.com/r/kasmweb/ubuntu-jammy-desktop)
-# The local docker run is: docker run -it --rm -p 9876:6901  <image>
+#   Included files are kasmvnc_defaults.yaml, sudoers, vnc_startup.sh
+# The kasmweb image can be either the productivity desktop Swetnam used -
+#   https://hub.docker.com/r/kasmweb/ubuntu-jammy-desktop
+#    or a desktop with much less installed -  
+#   https://hub.docker.com/r/kasmweb/desktop
+# The two pulls to local machine are -
+#  docker pull kasmweb/ubuntu-jammy-desktop:1.14.0-rolling
+#  docker pull kasmweb/desktop:1.14.0-rolling
+# In both cases, the local docker run is: docker run -it --rm -p 9876:6901  <image>
 # ########
-# Uses the light version of the desktop
+# Use the light version of the desktop
 FROM kasmweb/desktop:1.14.0-rolling
-
-# Copy and use parts of Tyson's dockerfile for VICE kasm-ubuntu. This is from the jammy desktop dockerfile but hopefully will work with the light desktop too.
+# Or, use the jammy desktop
+# FROM kasmweb/ubuntu-jammy-desktop:1.14.0-rolling
+# ########
+# Copy and use parts of Tyson's dockerfile for VICE kasm-ubuntu
+#  This is from the jammy desktop dockerfile but hopefully will work with the light desktop too.
 # create ~/data-store for CSI driver fuse mount
 WORKDIR /home/kasm-user/data-store
 # Install GoCommands
@@ -18,9 +26,8 @@ RUN mkdir /home/kasm-user/.irods
 RUN echo '{"irods_host": "data.cyverse.org", "irods_port": 1247, "irods_user_name": "$IPLANT_USER", "irods_zone_name": "iplant"}' | envsubst > /home/kasm-user/.irods/irods_environment.json
 USER root
 # Install a few dependencies for goCommands, text editing, and monitoring instances
-RUN apt update  \
-    && apt upgrade -y \
-    && apt install lsb-release apt-transport-https curl libfreetype6-dev pkg-config libx11-dev gcc less software-properties-common apt-utils glances htop nano  -y 
+RUN apt update && \
+    apt install -y lsb-release apt-transport-https curl libfreetype6-dev pkg-config libx11-dev gcc less software-properties-common apt-utils glances htop nano 
 # Install Go
 RUN wget -q -c https://dl.google.com/go/go1.20.5.linux-amd64.tar.gz -O - | tar -xz -C /usr/local
 ENV PATH=$PATH:/usr/local/go/bin 
@@ -32,41 +39,24 @@ COPY kasmvnc_defaults.yaml /usr/share/kasmvnc/kasmvnc_defaults.yaml
 COPY vnc_startup.sh /dockerstartup/vnc_startup.sh
 COPY sudoers /etc/sudoers
 RUN chmod +x /dockerstartup/vnc_startup.sh
-# ENTRYPOINT [ "/dockerstartup/vnc_startup.sh" ]
+ENTRYPOINT [ "/dockerstartup/vnc_startup.sh" ]
 # end of Tyaon's dockerfile
-# 
-# Setup Google Earth repo entry for using GTB export to kml option
-#    https://ubuntuhandbook.org/index.php/2024/05/install-google-earth-ubuntu/
-RUN mkdir /etc/apt/keyrings/
-#    add GE public key
-RUN wget -qO - https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor |  tee /etc/apt/keyrings/google-earth.gpg >/dev/null
-#    add GE repo 
-RUN sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-earth.gpg] https://dl.google.com/linux/earth/deb/ stable main" > /etc/apt/sources.list.d/google-earth.list'
-RUN chmod -R 777 /etc/apt/*
-
-# Set up GTB/GWB install
+# #######
+# Install GTB & GWB
+RUN apt-get update \ 
+	# && apt-get -y upgrade  \
+    && apt-get install apt-utils dialog gedit nomacs -y 
 WORKDIR /tmp
 RUN wget https://ies-ows.jrc.ec.europa.eu/gtb/GTB/gtb_amd64.deb
 RUN wget https://ies-ows.jrc.ec.europa.eu/gtb/GWB/gwb_amd64.deb
-
-# Install things
-RUN apt update \ 
-	&& apt upgrade -y  \
-    && apt install apt-utils dialog gedit nomacs gnumeric thunar-archive-plugin google-earth-pro-stable /tmp/gtb_amd64.deb /tmp/gwb_amd64.deb -y  \
-	# remove GE 32-bit stuff
-	&& apt remove libegl-mesa0:i386 libgbm1:i386 libgl1-mesa-dri:i386 libglapi-mesa:i386 libglx-mesa0:i386 -y \
-	&& apt autoremove -y \
-    && apt clean 
+RUN apt-get install /tmp/gtb_amd64.deb /tmp/gwb_amd64.deb -y
 RUN rm -f gtb_amd64.deb gwb_amd64.deb
 # delete the default data directories, the user can define them as needed
-RUN rm -fr /home/kasm-user/input /home/kasm-user/output
-# avoid GE double entry for later update
-RUN rm /etc/apt/sources.list.d/google-earth-*.list /etc/apt/trusted.gpg.d/google-earth-*.gpg
+# RUN rm -fr /home/kasm-user/input /home/kasm-user/output
 
 # CyVerse has no normal user setup, adapt to the custom setup
 RUN mkdir /home/.gwb
 RUN chown kasm-user:kasm-user /home/.gwb
-
 # Switch to normal user
 WORKDIR /home/kasm-user
 USER kasm-user
