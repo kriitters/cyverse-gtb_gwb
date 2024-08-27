@@ -58,8 +58,6 @@ RUN apt update \
 	&& apt autoremove -y \
     && apt clean 
 RUN rm -f gtb_amd64.deb gwb_amd64.deb
-# delete the default data directories, the user can define them as needed
-RUN rm -fr /home/kasm-user/input /home/kasm-user/output
 # avoid GE double entry for later update
 RUN rm /etc/apt/sources.list.d/google-earth-*.list /etc/apt/trusted.gpg.d/google-earth-*.gpg
 
