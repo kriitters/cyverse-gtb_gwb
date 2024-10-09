@@ -12,8 +12,6 @@ CyVerse deployment of Peter Vogt's Guidos ToolBox (GTB) and Guidos ToolBox Workb
     GWB (only) on rocker/r-ver:4.1.1 to be run as CyVerse executable    
 |-- vice-kasm-desktop-gtbgwb:  CyVerse DE VICE tool.
 	  GWB and GTB on kasmweb/desktop, adding Tyson Swetnam's CyVerse integration steps and supporting files kasmvnc_defaults.yaml, sudoers, vnc_startup.sh  
-|-- usfs_ubuntu-gtbgwb:  CyVerse DE VICE tool.
-	  GWB and GTB on Tanvir Ahmed's hardened Ubuntu image (harbor.cyverse.org/usfs/kasm-stig-cyverse)    
 </pre>
 ## Additional Information  
 The repository consists mainly of Dockerfiles and entry shells which install and set up GTB and GWB.  
